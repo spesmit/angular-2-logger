@@ -5,7 +5,7 @@ import {AppComponent}  from './app.component';
 import {LoggerModule} from './logger/logger.module';
 
 @NgModule({
-  imports: [BrowserModule, LoggerModule],
+  imports: [BrowserModule, LoggerModule.forRoot({serverEnabled : true})],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

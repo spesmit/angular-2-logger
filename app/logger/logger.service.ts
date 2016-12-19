@@ -1,29 +1,32 @@
 import {Injectable} from '@angular/core';
 
-import {LoggerConfig}  from './logger-config.service';
+import {LoggerConfig}  from './logger.config';
 import {ServerBaseFormatter}  from './format/server-log-base.service';
 import {ConsoleBaseFormatter}  from './format/console-log-base.service';
 import {LoggerResource}  from './logger.resource';
 import {LoggerInterface} from './logger.interface';
+import {LogType} from './logger-type.enum';
 
 import {Log} from './Log';
 
 @Injectable()
 export class Logger implements LoggerInterface {
 
-  private _enabled = true;
-  private _enabledServer = true;
+  private _enabled:boolean;
+  private _enabledServer:boolean;
 
   constructor(private consoleBaseFormatter:ConsoleBaseFormatter,
               private serverBaseFormatter:ServerBaseFormatter,
               private loggerConfig:LoggerConfig,
               private loggerResource:LoggerResource) {
 
-    let methods = ['debug', 'error', 'info', 'log', 'warn'];
-    methods.forEach((method) => {
-      this[method] = this._handleLog(method);
-    });
+    let methods = this.loggerConfig.getMethods();
+    this._enabled = loggerConfig.getConsoleEnabled();
+    this._enabledServer = loggerConfig.getServerEnabled();
 
+    methods.forEach((method) => {
+      this[LogType[method]] = this._handleLog(LogType[method]);
+    });
   }
 
   public debug(...args:any[]) {
@@ -44,17 +47,17 @@ export class Logger implements LoggerInterface {
   private _handleLog(type:string) {
     return function (...args:any[]) {
       if (this._enabled) {
-        this._consoleLog(type).apply(null, this._formatLog(args, this.consoleBaseFormatter, type));
+        this._consoleLog(type).apply(self, this._formatLog(this.consoleBaseFormatter, type, args));
       }
       if (this._enabledServer) {
-        this._serverLog(type).apply(null, this._formatLog(args, this.serverBaseFormatter, type));
+        this._serverLog(type).apply(self, this._formatLog(this.serverBaseFormatter, type, args));
       }
     };
   }
 
-  private _formatLog(...args, formatter, type) {
-    let _args : any[] = [];
-    args.forEach(function (arg) {
+  private _formatLog(formatter:LoggerInterface, type:string, args:any[]) {
+    let _args:any[] = [];
+    args.forEach((arg) => {
       _args.push(formatter[type](arg));
     });
     return _args;
@@ -65,13 +68,14 @@ export class Logger implements LoggerInterface {
     let logFn = resource.serverLog;
 
     return function (...args:any[]) {
-      let log = new Log(JSON.stringify(args), type);
+      let log = new Log(JSON.stringify(args), LogType[type]);
       return logFn.apply(resource, log).subscribe();
     }
   }
 
   private _consoleLog(type:string) {
-    let noop = () => {};
+    let noop = () => {
+    };
     let console = window.console || {},
       logFn = console[type] || noop,
       hasApply = false;
@@ -85,13 +89,13 @@ export class Logger implements LoggerInterface {
     }
 
     if (hasApply) {
-      return function (...args : any[]) {
+      return function (...args:any[]) {
         return logFn.apply(console, args);
       };
     }
     // we are IE which either doesn't have window.console => this is noop and we do nothing,
     // or we are IE where console.log doesn't have apply so we log at least first 2 args
-    return function (arg1 : any, arg2 : any) {
+    return function (arg1:any, arg2:any) {
       logFn(arg1, arg2 === null ? '' : arg2);
     };
 

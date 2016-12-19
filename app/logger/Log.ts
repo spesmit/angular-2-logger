@@ -1,10 +1,12 @@
+import {LogType} from './logger-type.enum';
+
 export class Log {
 
-  constructor(message: string, type: string) {
+  constructor(message: string, type: LogType) {
     this.message = message;
     this.type = type;
   }
 
-  type : string;
+  type : LogType;
   message : string;
 }

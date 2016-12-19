@@ -1,17 +1,16 @@
-import {Injectable, Inject, forwardRef} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Response}  from '@angular/http';
 
-import {LoggerConfig} from './logger-config.service';
+import {LoggerConfig} from './logger.config';
 import {Log} from './Log';
 import {Observable}     from 'rxjs/Observable';
 import '../http/rx-js.operaters';
 
 @Injectable()
 export class LoggerResource {
-  test:string = 'test';
   private _baseUrl:string;
 
-  constructor(@Inject(forwardRef(() => Http)) private http:Http, private loggerConfig:LoggerConfig) {
+  constructor(private http:Http, private loggerConfig:LoggerConfig) {
     this._baseUrl = loggerConfig.getUrl();
   }
 
