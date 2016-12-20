@@ -1,8 +1,13 @@
 import {Injectable, Optional} from '@angular/core';
 
-import {LogType} from './logger-type.enum';
-import {LoggerConfigBase} from "./logger.config.base";
+import {LogType} from '../domain/logger-type.enum';
 
+export abstract class LoggerConfigBase {
+  url?:string;
+  methods?:LogType[];
+  consoleEnabled?:boolean;
+  serverEnabled?:boolean;
+}
 
 @Injectable()
 export class LoggerConfig {
@@ -12,25 +17,28 @@ export class LoggerConfig {
   private consoleEnabled:boolean = true;
   private serverEnabled:boolean = false;
 
-  constructor(@Optional() loggerConfigBase : LoggerConfigBase) {
+  constructor(@Optional() loggerConfigBase:LoggerConfigBase) {
     if (loggerConfigBase) {
       this.methods = loggerConfigBase.methods || this.methods;
       this.consoleEnabled = loggerConfigBase.consoleEnabled || this.consoleEnabled;
-      this.url = loggerConfigBase.url || this.url ;
-      this.serverEnabled = loggerConfigBase.serverEnabled || this.serverEnabled ;
+      this.url = loggerConfigBase.url || this.url;
+      this.serverEnabled = loggerConfigBase.serverEnabled || this.serverEnabled;
     }
   }
 
-  public getUrl() : string {
+  public getUrl():string {
     return this.url;
   }
-  public getMethods() : LogType[] {
+
+  public getMethods():LogType[] {
     return this.methods;
   };
-  public getConsoleEnabled() : boolean {
+
+  public getConsoleEnabled():boolean {
     return this.consoleEnabled;
   }
-  public getServerEnabled() : boolean {
+
+  public getServerEnabled():boolean {
     return this.serverEnabled;
   }
 

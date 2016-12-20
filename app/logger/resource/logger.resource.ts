@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http, Response}  from '@angular/http';
 
-import {LoggerConfig} from './logger.config';
-import {Log} from './Log';
+import {LoggerConfig} from '../configure/logger.config';
+import {Log} from '../domain/Log';
 import {Observable}     from 'rxjs/Observable';
-import '../http/rx-js.operaters';
+import '../../http/rx-js.operaters';
 
 @Injectable()
 export class LoggerResource {

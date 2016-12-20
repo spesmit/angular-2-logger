@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Logger} from "./logger/logger.service";
+import {Logger} from "./logger/service/impl/logger.service";
+import {Http} from "@angular/http";
 
 @Component({
   selector: 'my-app',
@@ -8,7 +9,7 @@ import {Logger} from "./logger/logger.service";
 export class AppComponent implements OnInit {
   name = 'Angular';
 
-  constructor(private logger:Logger) {
+  constructor(private logger:Logger, http: Http) {
   }
 
   ngOnInit() {

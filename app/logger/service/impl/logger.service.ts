@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 
-import {LoggerConfig}  from './logger.config';
-import {ServerBaseFormatter}  from './format/server-log-base.service';
-import {ConsoleBaseFormatter}  from './format/console-log-base.service';
-import {LoggerResource}  from './logger.resource';
-import {LoggerInterface} from './logger.interface';
-import {LogType} from './logger-type.enum';
-
-import {Log} from './Log';
+import {LoggerConfig}  from '../../configure/logger.config';
+import {LoggerResource}  from '../../resource/logger.resource';
+import {LoggerInterface} from '../logger.interface';
+import {LogType} from '../../domain/logger-type.enum';
+import {Log} from '../../domain/Log';
+import {ConsoleBaseFormatter} from "../../formatter/impl/console-log.service.base";
+import {ServerBaseFormatter} from "../../formatter/impl/server-log.service.base";
+import {LoggerFormatterInterface} from "../../formatter/logger-formatter.interface";
 
 @Injectable()
 export class Logger implements LoggerInterface {
@@ -18,7 +18,8 @@ export class Logger implements LoggerInterface {
   constructor(private consoleBaseFormatter:ConsoleBaseFormatter,
               private serverBaseFormatter:ServerBaseFormatter,
               private loggerConfig:LoggerConfig,
-              private loggerResource:LoggerResource) {
+              private loggerResource:LoggerResource
+  ) {
 
     let methods = this.loggerConfig.getMethods();
     this._enabled = loggerConfig.getConsoleEnabled();
@@ -55,12 +56,13 @@ export class Logger implements LoggerInterface {
     };
   }
 
-  private _formatLog(formatter:LoggerInterface, type:string, args:any[]) {
+  private _formatLog(formatter:LoggerFormatterInterface, type:string, args:any[]) {
     let _args:any[] = [];
+    args = formatter.pre(args);
     args.forEach((arg) => {
       _args.push(formatter[type](arg));
     });
-    return _args;
+    return formatter.post(_args);
   }
 
   private _serverLog(type:string) {

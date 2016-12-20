@@ -1,27 +1,15 @@
-import {NgModule, ModuleWithProviders}      from '@angular/core';
-import {HttpModule}      from '@angular/http';
+import {NgModule, ModuleWithProviders, forwardRef}      from '@angular/core';
 
-import {Logger}  from './logger.service';
-import {LoggerResource}  from './logger.resource';
-import {ConsoleBaseFormatter}  from './format/console-log-base.service';
-import {ServerBaseFormatter}  from './format/server-log-base.service';
-import {LoggerConfig}  from './logger.config';
-import {LoggerConfigBase} from "./logger.config.base";
+import {Logger}  from './service/impl/logger.service';
+import {LoggerConfig}  from './configure/logger.config';
+import {ServerBaseFormatter} from "./formatter/impl/server-log.service.base";
+import {ConsoleBaseFormatter} from "./formatter/impl/console-log.service.base";
+import {LoggerResource} from "./resource/logger.resource";
+import {Http} from "@angular/http";
 
 @NgModule({
-  imports: [HttpModule],
-  providers: [Logger, LoggerConfig, LoggerResource, ConsoleBaseFormatter, ServerBaseFormatter]
+  providers: [Logger, LoggerConfig, ConsoleBaseFormatter, ServerBaseFormatter, LoggerResource]
 })
-
 export class LoggerModule {
-
-  static forRoot(config:LoggerConfigBase):ModuleWithProviders {
-    return {
-      ngModule: LoggerModule,
-      providers: [
-        {provide: LoggerConfigBase, useValue: config}
-      ]
-    };
-  }
 
 }
