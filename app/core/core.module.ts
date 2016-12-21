@@ -1,7 +1,7 @@
 import {NgModule, ModuleWithProviders}      from '@angular/core';
 
-import {HttpConfigBase} from "../http/configure/http.config";
-import {LoggerConfigBase} from "../logger/configure/logger.config";
+import {HttpConfigBase} from "../http/config/http.config";
+import {LoggerConfigBase} from "../logger/config/logger.config";
 import {LoggerModule} from "../logger/logger.module";
 import {HttpCoreModule} from "../http/http.module";
 import {LoggerResource} from "../logger/resource/logger.resource";

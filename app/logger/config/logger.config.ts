@@ -1,12 +1,14 @@
 import {Injectable, Optional} from '@angular/core';
 
 import {LogType} from '../domain/logger-type.enum';
+import {Headers} from "@angular/http";
 
 export abstract class LoggerConfigBase {
   url?:string;
   methods?:LogType[];
   consoleEnabled?:boolean;
   serverEnabled?:boolean;
+  loggerHeader?:Headers|{};
 }
 
 @Injectable()
@@ -16,6 +18,7 @@ export class LoggerConfig {
   private methods:LogType[] = [LogType.debug, LogType.warn, LogType.info, LogType.error, LogType.log];
   private consoleEnabled:boolean = true;
   private serverEnabled:boolean = false;
+  private loggerHeader:Headers|{};
 
   constructor(@Optional() loggerConfigBase:LoggerConfigBase) {
     if (loggerConfigBase) {
@@ -23,6 +26,7 @@ export class LoggerConfig {
       this.consoleEnabled = loggerConfigBase.consoleEnabled || this.consoleEnabled;
       this.url = loggerConfigBase.url || this.url;
       this.serverEnabled = loggerConfigBase.serverEnabled || this.serverEnabled;
+      this.loggerHeader = loggerConfigBase.loggerHeader || this.loggerHeader;
     }
   }
 
@@ -40,6 +44,10 @@ export class LoggerConfig {
 
   public getServerEnabled():boolean {
     return this.serverEnabled;
+  }
+
+  public getLoggerHeader():Headers|{} {
+    return this.loggerHeader;
   }
 
 }

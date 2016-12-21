@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent}  from './app.component';
 import {CoreModule} from "./core/core.module";
+import {Headers} from "@angular/http";
 
 // import {ConsoleBaseFormatter} from "./logger/formatter/impl/console-log.service.base";
 // import {ServerBaseFormatter} from "./logger/formatter/impl/server-log.service.base";
@@ -11,7 +12,7 @@ import {CoreModule} from "./core/core.module";
 // import {Logger} from "./logger/service/impl/logger.service";
 
 @NgModule({
-  imports: [BrowserModule, CoreModule.forRoot({}, {serverEnabled: false})],
+  imports: [BrowserModule, CoreModule.forRoot({}, {serverEnabled: true})],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   // providers: [

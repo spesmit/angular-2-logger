@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {LoggerConfig}  from '../../configure/logger.config';
+import {LoggerConfig}  from '../../config/logger.config';
 import {LoggerResource}  from '../../resource/logger.resource';
 import {LoggerInterface} from '../logger.interface';
 import {LogType} from '../../domain/logger-type.enum';
@@ -18,8 +18,7 @@ export class Logger implements LoggerInterface {
   constructor(private consoleBaseFormatter:ConsoleBaseFormatter,
               private serverBaseFormatter:ServerBaseFormatter,
               private loggerConfig:LoggerConfig,
-              private loggerResource:LoggerResource
-  ) {
+              private loggerResource:LoggerResource) {
 
     let methods = this.loggerConfig.getMethods();
     this._enabled = loggerConfig.getConsoleEnabled();
@@ -71,7 +70,7 @@ export class Logger implements LoggerInterface {
 
     return function (...args:any[]) {
       let log = new Log(JSON.stringify(args), LogType[type]);
-      return logFn.apply(resource, log).subscribe();
+      logFn.apply(resource, log).subscribe(res => res, error => error)
     }
   }
 
@@ -92,7 +91,7 @@ export class Logger implements LoggerInterface {
 
     if (hasApply) {
       return function (...args:any[]) {
-        return logFn.apply(console, args);
+        logFn.apply(console, args);
       };
     }
     // we are IE which either doesn't have window.console => this is noop and we do nothing,

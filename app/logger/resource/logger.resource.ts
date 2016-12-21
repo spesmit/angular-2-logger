@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Http, Response}  from '@angular/http';
+import {Response}  from '@angular/http';
 
-import {LoggerConfig} from '../configure/logger.config';
+import {LoggerConfig} from '../config/logger.config';
 import {Log} from '../domain/Log';
 import {Observable}     from 'rxjs/Observable';
-import '../../http/rx-js.operaters';
+import './http/rx-js.operaters';
+import {LoggerHttpService} from "./http/logger-http.service";
 
 @Injectable()
 export class LoggerResource {
   private _baseUrl:string;
 
-  constructor(private http:Http, private loggerConfig:LoggerConfig) {
+  constructor(private http:LoggerHttpService, private loggerConfig:LoggerConfig) {
     this._baseUrl = loggerConfig.getUrl();
   }
 
@@ -26,7 +27,6 @@ export class LoggerResource {
   }
 
   private handleError(error:Response | any) {
-    console.error(error);
     return Observable.throw(error);
   }
 
