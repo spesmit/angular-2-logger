@@ -12,7 +12,7 @@ import {Headers} from "@angular/http";
 // import {Logger} from "./logger/service/impl/logger.service";
 
 @NgModule({
-  imports: [BrowserModule, CoreModule.forRoot({}, {serverEnabled: true})],
+  imports: [BrowserModule, CoreModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   // providers: [
