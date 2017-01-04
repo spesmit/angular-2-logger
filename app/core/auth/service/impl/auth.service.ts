@@ -11,8 +11,9 @@ export class AuthService implements AuthInterface {
     this.currentUser = user;
   }
 
-  getCurrentUser():User|void {
+  getCurrentUser():User|null {
     if (this.currentUser) return this.currentUser;
+    else return null;
   }
 
 }

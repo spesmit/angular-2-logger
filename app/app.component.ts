@@ -16,9 +16,13 @@ export class AppComponent implements OnInit {
     this.logger.log('test', 'test2', 'test3');
     this.logger.error('test', 'test2', 'test3');
     this.logger.info('test', 'test2', 'test3');
-    this.http.get('help.jso').subscribe(
+    this.http.get('help.json').subscribe(
       (res:any)=> res,
       (error:any) => error);
+
+    let logger_instance = this.logger.getInstance('prepend');
+    logger_instance.log('test', 'test2', 'test3');
+
   }
 
 

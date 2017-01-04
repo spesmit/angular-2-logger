@@ -1,7 +1,8 @@
 export interface LoggerInterface {
-  info(arg : any) : void;
-  debug(arg: any) : void;
-  warn(arg: any) : void;
-  log(arg: any) : void;
-  error(arg: any) : void;
+  info(...args:any[]):void;
+  debug(...args:any[]):void;
+  warn(...args:any[]):void;
+  log(...args:any[]):void;
+  error(...args:any[]):void;
+  getInstance(instance:string):LoggerInterface;
 }

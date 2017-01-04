@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 import {LogType} from '../enums/logger-type.enum';
-import {Headers} from "@angular/http";
+import {Headers, BaseRequestOptions} from "@angular/http";
 import {LoggerOptionsArgs} from "./logger.options.args";
 
 @Injectable()
@@ -11,15 +11,15 @@ export class LoggerOptions {
   methods:LogType[];
   consoleEnabled:boolean;
   serverEnabled:boolean;
-  loggerHeaders:Headers|Object;
+  loggerRequestOptions:BaseRequestOptions;
 
 
-  constructor({url, methods, consoleEnabled, serverEnabled, loggerHeaders} : LoggerOptionsArgs = {}) {
+  constructor({url, methods, consoleEnabled, serverEnabled, loggerRequestOptions} : LoggerOptionsArgs = {}) {
     this.url = url != null ? url : null;
     this.methods = methods != null ? methods : null;
     this.consoleEnabled = consoleEnabled != null ? consoleEnabled : null;
     this.serverEnabled = serverEnabled != null ? serverEnabled : null;
-    this.loggerHeaders = loggerHeaders != null ? loggerHeaders : null;
+    this.loggerRequestOptions = loggerRequestOptions != null ? loggerRequestOptions : null;
   }
 
   merge(options?:LoggerOptionsArgs):LoggerOptions {
@@ -28,7 +28,7 @@ export class LoggerOptions {
       methods: options && options.methods != null ? options.methods : this.methods,
       consoleEnabled: options && options.consoleEnabled != null ? options.consoleEnabled : this.consoleEnabled,
       serverEnabled: options && options.serverEnabled != null ? options.serverEnabled : this.serverEnabled,
-      loggerHeaders: options && options.loggerHeaders != null ? options.loggerHeaders : this.loggerHeaders,
+      loggerRequestOptions: options && options.loggerRequestOptions != null ? options.loggerRequestOptions : this.loggerRequestOptions,
     });
   }
 

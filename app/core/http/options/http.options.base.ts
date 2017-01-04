@@ -4,6 +4,6 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class BaseHttpOptions extends HttpOptions {
   constructor() {
-    super({headers : {}, httpLogging : {error : 'error', success : 'info'}});
+    super({httpLogging : {error : 'error', success : 'info'}});
   }
 }

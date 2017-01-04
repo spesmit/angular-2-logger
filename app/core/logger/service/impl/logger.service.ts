@@ -29,19 +29,23 @@ export class Logger implements LoggerInterface {
     });
   }
 
-  public debug(...args:any[]) {
+  public debug(...args:any[]):void {
   }
 
-  public error(...args:any[]) {
+  public error(...args:any[]):void {
   }
 
-  public info(...args:any[]) {
+  public info(...args:any[]):void {
   }
 
-  public warn(...args:any[]) {
+  public warn(...args:any[]):void {
   }
 
-  public log(...args:any[]) {
+  public log(...args:any[]):void {
+  }
+
+  public getInstance(instance:string):LoggerInterface {
+    return new LoggerInstance(this.consoleBaseFormatter, this.serverBaseFormatter, this.loggerOptions, this.loggerResource, instance);
   }
 
   private _handleLog(type:string) {
@@ -104,6 +108,33 @@ export class Logger implements LoggerInterface {
       logFn(arg1, arg2 === null ? '' : arg2);
     };
 
+  }
+
+}
+
+class LoggerInstance extends Logger {
+
+  constructor(consoleBaseFormatter:ConsoleBaseFormatter,
+              serverBaseFormatter:ServerBaseFormatter,
+              loggerOptions:LoggerOptions,
+              loggerResource:LoggerResource,
+              private instance:string) {
+
+    super(consoleBaseFormatter, serverBaseFormatter, loggerOptions, loggerResource);
+
+    let methods = loggerOptions.methods;
+
+    methods.forEach((method) => {
+      this[LogType[method]] = this._addInstance(this[LogType[method]]);
+    });
+
+  }
+
+  private _addInstance(fn:Function) {
+    return function (...args:any[]) {
+      args.unshift(this.instance);
+      fn.apply(this, args);
+    }
   }
 
 }

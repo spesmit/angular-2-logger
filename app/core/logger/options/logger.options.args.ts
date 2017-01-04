@@ -1,4 +1,4 @@
-import {Headers} from "@angular/http";
+import {BaseRequestOptions} from "@angular/http";
 import {LogType} from "../enums/logger-type.enum";
 
 export interface LoggerOptionsArgs {
@@ -6,5 +6,5 @@ export interface LoggerOptionsArgs {
   methods?:LogType[];
   consoleEnabled?:boolean;
   serverEnabled?:boolean;
-  loggerHeaders?:Headers|Object;
+  loggerRequestOptions?:BaseRequestOptions;
 }

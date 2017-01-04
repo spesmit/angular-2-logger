@@ -1,24 +1,19 @@
 import {Injectable} from '@angular/core';
-import {BaseRequestOptions, Headers}  from '@angular/http';
-import {HttpOptions} from "../options/http.options";
+import {BaseRequestOptions}  from '@angular/http';
+import {AuthService} from "../../auth/service/impl/auth.service";
 
 @Injectable()
 export class HttpRequestOptions extends BaseRequestOptions {
 
-  constructor(private httpOptions:HttpOptions) {
+  constructor(private authService : AuthService) {
     super();
+
+    let user = authService.getCurrentUser();
 
     // defaults
     this.headers.set('Content-Type', 'application/json');
+    this.headers.set('Authorization', user.getAToken())
 
-    let headers = httpOptions.headers;
-    if (headers instanceof Headers) {
-      this.headers = headers;
-    } else if (headers instanceof Object) {
-      Object.keys(headers).forEach((entry:string) => {
-        this.headers.set(entry, headers[entry]);
-      })
-    }
   }
 
 }
