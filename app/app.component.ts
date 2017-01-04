@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Http} from "@angular/http";
-import {Logger} from "./core/logger/service/impl/logger.service";
+import {Logger} from "./core/logger";
 
 @Component({
   selector: 'my-app',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
       (error:any) => error);
 
     let logger_instance = this.logger.getInstance('prepend');
-    logger_instance.log('test', 'test2', 'test3');
+    logger_instance.log('test', 'test2', 'test');
 
   }
 

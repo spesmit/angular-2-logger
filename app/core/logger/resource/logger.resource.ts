@@ -4,7 +4,7 @@ import {Log} from '../domain/Log';
 import {Observable}     from 'rxjs/Observable';
 import './http/rx-js.operaters';
 import {LoggerHttpService} from "./http/logger-http.service";
-import {LoggerOptions} from "../options/logger.options";
+import {LoggerOptions} from "../options";
 
 @Injectable()
 export class LoggerResource {

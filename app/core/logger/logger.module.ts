@@ -9,6 +9,7 @@ import {LoggerErrorHandler} from "./error/error-handler.service";
 import {BaseLoggerOptions} from "./options/logger.options.base";
 import {LoggerOptions} from "./options/logger.options";
 
+
 @NgModule({
   providers: [Logger,
     ConsoleBaseFormatter,

@@ -1,24 +1,11 @@
 import {Injectable} from '@angular/core';
 
-import {
-  LoggerResource,
-  LoggerInterface,
-  LogType,
-  Log,
-  ConsoleBaseFormatter,
-  ServerBaseFormatter,
-  LoggerFormatterInterface,
-  LoggerOptions
-}  from '../../../logger/index';
-
-// import {LoggerResource}  from '../../resource/logger.resource';
-// import {LoggerInterface} from '../logger.interface';
-// import {LogType} from '../../enums/logger-type.enum';
-// import {Log} from '../../domain/Log';
-// import {ConsoleBaseFormatter} from "../../formatter/impl/console-log.service.base";
-// import {ServerBaseFormatter} from "../../formatter/impl/server-log.service.base";
-// import {LoggerFormatterInterface} from "../../formatter/logger-formatter.interface";
-// import {LoggerOptions} from "../../options/logger.options";
+import {LoggerResource}  from '../../resource/logger.resource';
+import {LoggerInterface} from '../logger.interface';
+import {LogType} from '../../enums/logger-type.enum';
+import {Log} from '../../domain/Log';
+import {ConsoleBaseFormatter, LoggerFormatterInterface, ServerBaseFormatter} from "../../formatter";
+import {LoggerOptions} from "../../options";
 
 @Injectable()
 export class Logger implements LoggerInterface {
