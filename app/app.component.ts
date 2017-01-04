@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Logger} from "./core/logger/service/impl/logger.service";
 import {Http} from "@angular/http";
+import {Logger} from "./core/logger/service/impl/logger.service";
 
 @Component({
   selector: 'my-app',
