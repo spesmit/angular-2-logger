@@ -72,11 +72,7 @@ export class Logger implements LoggerInterface {
 
     return function (...args:any[]) {
       let log = new Log(JSON.stringify(args), LogType[type]);
-      logFn.apply(resource, log).subscribe(
-        (res:any) => res,
-        (error:any) => {
-          console.error(error);
-        })
+      logFn.apply(resource, log);
     }
   }
 
