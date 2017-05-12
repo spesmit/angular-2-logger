@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-
+import {Http}      from '@angular/http';
 import {Log} from '../domain/Log';
 import {Observable}     from 'rxjs/Observable';
 import './http/rx-js.operaters';
-import {LoggerHttpService} from "./http/logger-http.service";
 import {LoggerOptions} from "../options";
 import {Subscription} from "rxjs/Rx";
 
@@ -11,7 +10,7 @@ import {Subscription} from "rxjs/Rx";
 export class LoggerResource {
   private _baseUrl:string;
 
-  constructor(private http:LoggerHttpService, private loggerOptions:LoggerOptions) {
+  constructor(private http:Http, private loggerOptions:LoggerOptions) {
     this._baseUrl = loggerOptions.url;
   }
 

@@ -3,6 +3,26 @@ Upgraders: for a fresh start, consider running these commands
 * `git clean -xdf` 
 * `npm install`
 
+<a name="0.4.1"></a>
+# 0.4.1 (2017-03-24)
+* Replace systemjs-angular-loader with version that works for IE
+
+<a name="0.4.0"></a>
+# 0.4.0 (2017-03-24)
+* Update to Angular 4.0.0
+
+<a name="0.3.0"></a>
+# 0.3.0 (2017-03-22)
+* Remove moduleId with a systemjs loader.
+
+<a name="0.2.22"></a>
+# 0.2.22 (2017-01-05)
+* Add `non-essential-files.txt` and instructions to use it to README
+
+<a name="0.2.21"></a>
+# 0.2.21 (2016-12-14)
+* Update to in-memory-web-api v.0.2.1
+
 <a name="0.2.20"></a>
 # 0.2.20 (2016-12-07)
 * Update to Angular 2.3.0

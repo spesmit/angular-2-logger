@@ -15,7 +15,6 @@ import {LoggerOptions} from "./options/logger.options";
     ConsoleBaseFormatter,
     ServerBaseFormatter,
     LoggerResource,
-    LoggerHttpService,
     LoggerRequestOptions,
     {provide: ErrorHandler, useClass: LoggerErrorHandler, deps: [Logger]},
     {provide: LoggerOptions, useClass: BaseLoggerOptions}

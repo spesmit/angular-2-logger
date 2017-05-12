@@ -7,7 +7,7 @@ export class HttpOptions {
 
   httpLogging : Object;
 
-  constructor({ httpLogging} : HttpOptionsArgs = {}) {
+  constructor({httpLogging} : HttpOptionsArgs = {}) {
     this.httpLogging = httpLogging != null ? httpLogging : null;
   }
 
